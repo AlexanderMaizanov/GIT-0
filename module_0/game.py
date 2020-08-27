@@ -1,25 +1,25 @@
 import numpy as np
 import math
-Debug = False
+Debug = False #Чтобы увидеть дополнительный вывод можно установить в True
 
 def game_core_v3(number):
     '''Сначала устанавливаем любое random число, а потом уменьшаем или увеличиваем его в зависимости от того, больше оно или меньше нужного.
        Функция принимает загаданное число и возвращает число попыток'''
     count = 0
-    upper = 100
-    lower = 0
+    upper = 100 #Верхний предел
+    lower = 0 #Нижний предел
     
-    predict = (upper - lower)/2
+    predict = (upper - lower)/2 #Делим наш интервал пополам, чтобы ускорить поиск решения
     while number != predict:
         count += 1
         if Debug: print(f"try: {count}, predict: {predict}")
-        if number > predict: #more
-            lower = predict
-            predict += int(math.ceil((upper - predict)/2.0))
+        if number > predict:
+            lower = predict #Задаем новый нижний предел
+            predict += int(math.ceil((upper - predict)/2.0)) #вычисляем предсказание
             if Debug: print("more")
-        elif number < predict: #less
-            upper = predict
-            predict -= int(math.ceil((predict - lower)/2.0))
+        elif number < predict:
+            upper = predict #Задаем новый верхний предел
+            predict -= int(math.ceil((predict - lower)/2.0))#вычисляем предсказание
             if Debug: print("less")
         
     return(count) # выход из цикла, если угадали
